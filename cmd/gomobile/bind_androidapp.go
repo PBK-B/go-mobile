@@ -355,7 +355,7 @@ func buildAndroidSO(outputDir string, arch string) error {
 	copy(env, androidEnv[arch])
 
 	// Add the generated packages to GOPATH for reverse bindings.
-	gopath := fmt.Sprintf("GOPATH=%s%c%s", tmpdir, filepath.ListSeparator, goEnv("GOPATH"))
+	gopath := fmt.Sprintf("GOPATH=%s", os.Getenv("GOPATH"))
 	env = append(env, gopath)
 
 	modulesUsed, err := areGoModulesUsed()

@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"strconv"
@@ -111,7 +112,7 @@ func goAppleBind(gobind string, pkgs []*packages.Package, targets []targetInfo) 
 			copy(env, appleEnv[t.String()])
 
 			// Add the generated packages to GOPATH for reverse bindings.
-			gopath := fmt.Sprintf("GOPATH=%s%c%s", outDir, filepath.ListSeparator, goEnv("GOPATH"))
+			gopath := fmt.Sprintf("GOPATH=%s", os.Getenv("GOPATH"))
 			env = append(env, gopath)
 
 			// Run `go mod tidy` to force to create go.sum.
